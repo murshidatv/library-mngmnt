@@ -1,0 +1,24 @@
+{
+  "name": "library-mngmnt-app",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "start": "ts-node src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  }
+}

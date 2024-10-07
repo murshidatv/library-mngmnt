@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f5;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .book-list {
+            margin-bottom: 40px;
+        }
+        .book {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .book:last-child {
+            border-bottom: none;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .book-status {
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 362px;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Library Management System</h1>
+    </header>
+
+    <div class="container">
+        <h2>Available Books</h2>
+        <div class="book-list" id="book-list">
+            <!-- Book items will be inserted here via JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Library Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const books = [
+            
+            { title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', available: true },
+            { title: '1984', author: 'George Orwell', available: true },
+        ];
+
+        const bookList = document.getElementById('book-list');
+
+        books.forEach((book, index) => {
+            const bookItem = document.createElement('div');
+            bookItem.className = 'book';
+            
+            bookItem.innerHTML = `
+                <span>${book.title} by ${book.author}</span>
+                <span class="book-status">${book.available ? 'Available' : 'Borrowed'}</span>
+                <button onclick="toggleBorrow(${index})">${book.available ? 'Borrow' : 'Return'}</button>
+            `;
+            
+            bookList.appendChild(bookItem);
+        });
+
+        function toggleBorrow(index) {
+            books[index].available = !books[index].available;
+            bookList.innerHTML = '';
+            books.forEach((book, index) => {
+                const bookItem = document.createElement('div');
+                bookItem.className = 'book';
+                
+                bookItem.innerHTML = `
+                    <span>${book.title} by ${book.author}</span>
+                    <span class="book-status">${book.available ? 'Available' : 'Borrowed'}</span>
+                    <button onclick="toggleBorrow(${index})">${book.available ? 'Borrow' : 'Return'}</button>
+                `;
+                
+                bookList.appendChild(bookItem);
+            });
+        }
+    </script>
+</body>
+</html>

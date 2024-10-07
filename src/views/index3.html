@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+</head>
+<body>
+    <h1>Library Management System</h1>
+    <h2>Available Books</h2>
+    <div id="book-list"></div>
+    <h2>Borrow Book</h2>
+    <input type="text" id="borrow-title" placeholder="Book Title">
+    <button onclick="borrowBook()">Borrow</button>
+    <h2>Return Book</h2>
+    <input type="text" id="return-title" placeholder="Book Title">
+    <button onclick="returnBook()">Return</button>
+
+    <script>
+        async function fetchBooks() {
+            const response = await fetch('/api/books');
+            const books = await response.json();
+            const bookList = document.getElementById('book-list');
+            bookList.innerHTML = books.map(book => `${book.title} by ${book.author} - ${book.available ? 'Available' : 'Borrowed'}`).join('<br>');
+        }
+
+        async function borrowBook() {
+            const title = document.getElementById('borrow-title').value;
+            const response = await fetch('/api/borrow', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title }),
+            });
+            const message = await response.text();
+            alert(message);
+            fetchBooks();
+        }
+
+        async function returnBook() {
+            const title = document.getElementById('return-title').value;
+            const response = await fetch('/api/return', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title }),
+            });
+            const message = await response.text();
+            alert(message);
+            fetchBooks();
+        }
+
+        fetchBooks();
+    </script>
+</body>
+</html>
